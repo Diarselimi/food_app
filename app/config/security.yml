@@ -25,7 +25,4 @@ security:
             #http_basic: ~
 
             # https://symfony.com/doc/current/security/form_login_setup.html
-            form_login:
-              login_path: login
-              check_path: login
-              default_target_path: token
+            form_login: ~
