@@ -29,19 +29,18 @@ class LoginController extends BaseController
      * @Route("/authenticate", name="authenticate")
      * @Method({"POST"})
      * @param Request $request
-     * @param AuthenticationUtils $authUtils
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function loginAction(Request $request, AuthenticationUtils $authUtils)
+    public function loginAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $data = (object) $request->request->all();
 
         #TODO: implement the password hash system
         $restaurant = $em->getRepository(Restaurant::class)->findOneBy([
-            'username' => trim($request->get('_username')),
-            'password' => trim($request->get('_password'))
+            'username' => trim($data->_username),
+            'password' => trim($data->_password)
         ]);
-
 
         if (!$restaurant)
             return $this->createBadResponse(['message' => 'Invalid Credentials']);

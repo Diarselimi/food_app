@@ -47,6 +47,12 @@ class Restaurant
      */
     private $token;
 
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+
     /**
      * @return mixed
      */
