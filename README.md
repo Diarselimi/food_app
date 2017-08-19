@@ -8,3 +8,6 @@
 
 ## For front-end
 * React JS
+
+## Execute the tests
+vendor/bin/phpunit
