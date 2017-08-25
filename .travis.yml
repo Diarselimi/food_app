@@ -1,0 +1,17 @@
+# travis ci configuration file
+before_install:
+  - sudo apt-get install nginx -y
+  - sudo ufw allow 'Nginx HTTP' -y
+  - ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'
+  - sudo apt-get install mysql-server -y
+  - sudo apt-get install php-fpm php-mysql -y
+  - sudo echo "cgi.fix_pathinfo=0" >> /etc/php/7.0/fpm/php.ini
+  - sudo systemctl restart php7.0-fpm
+
+install: true
+
+branches:
+  only:
+    - master
+    - stable
+

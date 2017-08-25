@@ -5,7 +5,7 @@ use Tests\AppBundle\Controller\MainWebTestCase;
 
 class LoginControllerTest extends MainWebTestCase
 {
-    public function testLoginAction()
+    public function testLoginActionWithWrongCredentials()
     {
         $client = self::createClient();
 
@@ -16,6 +16,12 @@ class LoginControllerTest extends MainWebTestCase
 
         $data = (array) json_decode($client->getResponse()->getContent());
         $this->assertArrayHasKey('message', $data);
+    }
+
+    public function testLoginActionWithExistingCredentials()
+    {
+        $client = self::createClient();
+
         $this->createRestaurantUser();
 
         $crawler = $client->request('POST', 'api/fs/authenticate', [
@@ -24,7 +30,7 @@ class LoginControllerTest extends MainWebTestCase
         ], [], ['content_type' => 'application/json']);
 
         $data = (array) json_decode($client->getResponse()->getContent());
-        $this->assertArrayHasKey('message', $data);
+        $this->assertArrayHasKey('_token', $data);
         $this->destroyObjects();
     }
 }
